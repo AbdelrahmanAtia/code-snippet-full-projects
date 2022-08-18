@@ -27,8 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.transaction.annotation.Propagation.NOT_SUPPORTED;
 
-@DataJpaTest // TODO: Interview question >> what is the difference between @SpringBootTest &
-				// @DataJpaTest
+@DataJpaTest
 @Transactional(propagation = NOT_SUPPORTED) //disable transactional behavior of spring boot tests and disables roll back after 
                                             //each test function
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // TODO: what is the use of this annotation
@@ -38,14 +37,13 @@ class PersistenceTests {
 	private ProductRepository repository;
 
 	private ProductEntity savedEntity;
-
+	
 	@DynamicPropertySource
 	static void databaseProperties(DynamicPropertyRegistry registry) {
 		registry.add("spring.datasource.url", () -> "jdbc:mysql://localhost:3306/code_snippet");
 		registry.add("spring.datasource.username", () -> "root");
 		registry.add("spring.datasource.password", () -> "System");
 		registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop");
-
 	}
 
 	@BeforeEach
